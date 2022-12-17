@@ -1,38 +1,166 @@
+* {
+  padding: 0;
+  margin: 0;
+  border: 0;
+}
+*,
+*:before,
+*:after {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+:focus,
+:active {
+  outline: none;
+}
+a:focus,
+a:active {
+  outline: none;
+}
+
+nav,
+footer,
+header,
+aside {
+  display: block;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-size: 100%;
+  line-height: 1;
+  font-size: 14px;
+  -ms-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -webkit-text-size-adjust: 100%;
+}
+input,
+button,
+textarea {
+  font-family: inherit;
+}
+
+input::-ms-clear {
+  display: none;
+}
+button {
+  cursor: pointer;
+}
+button::-moz-focus-inner {
+  padding: 0;
+  border: 0;
+}
+a,
+a:visited {
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: none;
+}
+ul li {
+  list-style: none;
+}
+img {
+  vertical-align: top;
+}
+
+/*--------------------*/
+
 .App {
   text-align: center;
+  position: relative;
+  min-height: 700px;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.circularProgress {
+  position: absolute;
+  top: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.search_form {
+  padding: 20px 0px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.search_form input,
+.search_form select {
+  border-bottom: 1px solid gray;
+  margin-left: 10px;
+}
+
+.main_table {
+  margin: 0 auto;
+  font-family: sans-serif;
+  text-align: center;
+  border-collapse: collapse;
+  border-spacing: 5px;
+}
+th {
+  font-size: 14px;
+  padding: 5px;
+  background-color: rgb(122, 186, 189);
+}
+
+th:first-child {
+  text-align: left;
+}
+
+td:first-child {
+  background-color: rgb(122, 186, 189);
+  padding: 5px;
+  text-align: left;
+  cursor: pointer;
+}
+tfoot td:first-child,
+tfoot td {
+  background-color: rgb(122, 186, 189);
+}
+td {
+  background-color: azure;
+  padding: 5px;
+}
+
+tfoot p {
+  font-size: 14px;
+}
+.popup {
+  position: absolute;
   display: flex;
-  flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 99;
+}
+.popup_content {
+  position: relative;
+  width: 600px;
+  height: 450px;
+  background-color: aqua;
+  overflow-y: scroll;
+}
+
+.popup_content span {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+}
+
+.annul {
+  margin: 15px 0;
+  width: 150px;
+  height: 50px;
+  background-color: black;
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.annul:hover {
+  background-color: grey;
+  color: black;
 }
