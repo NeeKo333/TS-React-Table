@@ -1,6 +1,6 @@
 interface PopupProps {
   annulProducts: () => void;
-  content: Array<string>;
+  content: Array<string> | Array<number>;
   closePopup: (e: any) => void;
 }
 
@@ -13,14 +13,19 @@ const Popup: React.FC<PopupProps> = ({
     <div onClick={(e) => closePopup(e)} className="popup">
       <div className="popup_content">
         <span className="cancel_popup">X</span>
-        Вы уверены что хотите аннулировать товары?
-        <ul>
-          {content.map((productName) => (
-            <li>{productName}</li>
+        <h4>Вы уверены что хотите аннулировать товары?</h4>
+        <div className="popup_productsLine">
+          {content.map((productName, index) => (
+            <span key={index}>{productName}</span>
           ))}
-        </ul>
+        </div>
         <div className="popup_buttons">
-          <button onClick={annulProducts}>Применить</button>
+          <button
+            onClick={annulProducts}
+            className={content.length > 0 ? "" : "unActive"}
+          >
+            Применить
+          </button>
           <button className="cancel_popup">Отменить</button>
         </div>
       </div>

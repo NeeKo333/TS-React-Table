@@ -53,17 +53,22 @@ function App() {
   }
 
   useEffect(() => {
-    getData().then((data) => {
-      setProducts(sortByDate(data));
-      setSearchedProducts(data);
-    });
+    getData()
+      .then((data) => {
+        setProducts(sortByDate(data));
+        setSearchedProducts(data);
+      })
+      .catch(() => alert("Data request Error"));
   }, []);
 
   function search(field: number | string, searchQuery: string) {
     if (searchQuery) {
       setSearchedProducts(
         products.filter((product) =>
-          (product[field as keyof IProduct] + "").includes(searchQuery)
+          product[field as keyof IProduct]
+            .toString()
+            .toLocaleLowerCase()
+            .includes(searchQuery.toLocaleLowerCase())
         )
       );
     } else setSearchedProducts([...products]);
@@ -97,7 +102,6 @@ function App() {
       });
       setSearchedProducts(newArr);
     } else {
-      console.log(e.target);
       const newArr = products.map((product) => {
         product.status = true;
         return product;
@@ -107,13 +111,16 @@ function App() {
   }
 
   function pushChekedProductsInPopup() {
-    const res: Array<string> = [];
+    const names: Array<string> = [];
+    const idArr: Array<number> = [];
     searchedProducts.forEach((product) => {
-      if (product.status) res.push(product.name);
+      if (product.status) {
+        names.push(product.name);
+        idArr.push(product.id);
+      }
     });
-    return res;
+    return [names, idArr];
   }
-
   function closePopup(e: MouseEvent) {
     if (
       (e.target as HTMLElement).className === "popup" ||
@@ -122,7 +129,16 @@ function App() {
       setPopupState(false);
   }
 
+  function postIdToServer(array: Array<number> | Array<string>) {
+    fetch("https://jsonplaceholder.typicode.com/posts", {
+      method: "POST",
+      body: JSON.stringify(array),
+    }).then((request) => console.log(request));
+  }
+
   function annulProducts() {
+    const idArr = pushChekedProductsInPopup()[1];
+    if (idArr.length > 0) postIdToServer(idArr);
     const newArr = searchedProducts.map((product) => {
       product.status = false;
       return product;
@@ -154,7 +170,7 @@ function App() {
             <Popup
               annulProducts={annulProducts}
               closePopup={closePopup}
-              content={pushChekedProductsInPopup()}
+              content={pushChekedProductsInPopup()[0]}
             ></Popup>
           )}
         </>

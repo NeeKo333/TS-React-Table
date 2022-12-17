@@ -68,6 +68,7 @@ const Table: React.FC<TableProps> = ({
       <tbody>
         {array.map((product) => (
           <ProductTableRow
+            key={product.id}
             product={product}
             mainCheckBox={mainCheckBox}
             setCheckOnProduct={setCheckOnProduct}
