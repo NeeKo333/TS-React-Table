@@ -13,34 +13,21 @@ function App() {
   const mainCheckBox = useRef<HTMLInputElement>(null);
 
   async function getData() {
-    return Promise.all<IProduct[]>([firstRequest(), secondRequest()]).then(
+    const url1 = "https://api.jsonbin.io/v3/b/639744f62d0e0021081aff35";
+    const url2 = "https://api.jsonbin.io/v3/b/639748812d0e0021081b01e4";
+
+    return Promise.all<IProduct[]>([requestData(url1), requestData(url2)]).then(
       (data) => [...data[0], ...data[1]]
     );
-    async function firstRequest() {
-      const response = await fetch(
-        "https://api.jsonbin.io/v3/b/639744f62d0e0021081aff35",
-        {
-          method: "GET",
-          headers: {
-            "X-Master-Key":
-              "$2b$10$Tz6GO99EGxvlLju25FojYeQIFgETK7Q9hXK.A6BqKQoZcEx69VcS.",
-          },
-        }
-      );
-      const data = await response.json();
-      return data.record;
-    }
-    async function secondRequest() {
-      const response = await fetch(
-        "https://api.jsonbin.io/v3/b/639748812d0e0021081b01e4",
-        {
-          method: "GET",
-          headers: {
-            "X-Master-Key":
-              "$2b$10$Tz6GO99EGxvlLju25FojYeQIFgETK7Q9hXK.A6BqKQoZcEx69VcS.",
-          },
-        }
-      );
+
+    async function requestData(url: string) {
+      const response = await fetch(url, {
+        method: "GET",
+        headers: {
+          "X-Master-Key":
+            "$2b$10$Tz6GO99EGxvlLju25FojYeQIFgETK7Q9hXK.A6BqKQoZcEx69VcS.",
+        },
+      });
       const data = await response.json();
       return data.record;
     }
